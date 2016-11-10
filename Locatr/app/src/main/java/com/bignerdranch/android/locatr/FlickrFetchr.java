@@ -1,6 +1,8 @@
 package com.bignerdranch.android.locatr;
 
+import android.location.Location;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -76,6 +78,11 @@ public class FlickrFetchr {
         return downloadGalleryItems(url);
     }
 
+    public List<GalleryItem> searchPhotos(Location location) {
+        String url = buildUrl(location);
+        return downloadGalleryItems(url);
+    }
+
     private List<GalleryItem> downloadGalleryItems(String url) {
 
         List<GalleryItem> items = new ArrayList<>();
@@ -105,6 +112,14 @@ public class FlickrFetchr {
         return uriBuilder.build().toString();
     }
 
+    private String buildUrl(Location location) {
+        return ENDPOINT.buildUpon()
+                .appendQueryParameter("method", SEARCH_METHOD)
+                .appendQueryParameter("lat", "" + location.getLatitude())
+                .appendQueryParameter("lon", "" + location.getLongitude())
+                .build().toString();
+    }
+
     private void parseItems(List<GalleryItem> items, JSONObject jsonBody)
             throws IOException, JSONException {
 
@@ -127,6 +142,7 @@ public class FlickrFetchr {
         }
     }
 
+    @NonNull
     private List<GalleryItem> parseItemsGson(JSONObject jsonBody) throws IOException, JSONException{
 
         Gson gson = new GsonBuilder().create();

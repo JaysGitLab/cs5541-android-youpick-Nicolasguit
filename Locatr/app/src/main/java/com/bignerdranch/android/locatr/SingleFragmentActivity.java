@@ -1,4 +1,4 @@
-package com.bignerdranch.android.criminalintent;
+package com.bignerdranch.android.locatr;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
