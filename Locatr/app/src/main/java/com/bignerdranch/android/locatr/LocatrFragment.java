@@ -96,7 +96,6 @@ public class LocatrFragment extends SupportMapFragment {
     public void onStart() {
         super.onStart();
 
-
         getActivity().invalidateOptionsMenu();
         mClient.connect();
     }
